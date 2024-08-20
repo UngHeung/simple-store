@@ -27,8 +27,7 @@ export class AuthCredentialDto {
   @MinLength(12)
   @MaxLength(13)
   @Matches(/^\d{3}-\d{3,4}-\d{4}$/, {
-    message:
-      '핸드폰 번호는 숫자와 하이픈(-)만 입력 가능하며, 3-3-4, 3-4-4 형식이어야 합니다.',
+    message: '핸드폰 번호는 숫자만 입력 가능합니다.',
   })
   phone: string;
 
@@ -37,5 +36,5 @@ export class AuthCredentialDto {
   @Matches(/^[가-힣a-zA-Z0-9 -]*$/, {
     message: '주소는 한글, 영문, 숫자만 입력 가능합니다.',
   })
-  address: string;
+  address?: string;
 }
