@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-@Unique(['useraccount'])
+@Unique(['useraccount', 'phone'])
 export class UserEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -24,5 +24,5 @@ export class UserEntity extends BaseEntity {
   @Column()
   phone: string;
   @Column()
-  address: string;
+  address?: string;
 }
