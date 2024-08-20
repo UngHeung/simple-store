@@ -21,7 +21,7 @@ export class UserEntity extends BaseEntity {
 
   @Column()
   username: string;
-  @Column()
+  @Column({ unique: true })
   phone: string;
   @Column()
   address?: string;

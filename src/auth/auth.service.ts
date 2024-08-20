@@ -30,7 +30,9 @@ export class AuthService {
       await this.userRepository.save(user);
     } catch (error) {
       if (error.code === '23505')
-        throw new ConflictException('이미 등록된 계정입니다.');
+        throw new ConflictException(
+          '이미 등록된 계정(아이디 또는 연락처)입니다.',
+        );
       else throw new InternalServerErrorException();
     }
   }
