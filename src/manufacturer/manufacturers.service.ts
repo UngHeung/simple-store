@@ -45,4 +45,10 @@ export class ManufacturersService {
 
     return manufacturer;
   }
+
+  async deleteManufacturer(id: number): Promise<void> {
+    const response = await this.manufacturerRepository.delete({ id });
+    if (!response.affected)
+      throw new NotFoundException(`삭제할 제조사가 없습니다. id: ${id}`);
+  }
 }

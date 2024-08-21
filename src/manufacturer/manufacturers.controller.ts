@@ -1,7 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
+  ParseIntPipe,
   Post,
   UsePipes,
   ValidationPipe,
@@ -34,5 +37,10 @@ export class ManufacturersController {
     return this.manufacturersService.getManufacturerByName(
       req.manufacturerName,
     );
+  }
+
+  @Delete('/:id')
+  deleteManufacturer(@Param('id', ParseIntPipe) id: number) {
+    return this.manufacturersService.deleteManufacturer(id);
   }
 }
