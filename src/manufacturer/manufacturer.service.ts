@@ -9,7 +9,9 @@ export class ManufacturerService {
   @InjectRepository(ManufacturerEntity)
   private manufacturerRepository: Repository<ManufacturerEntity>;
 
-  async addManufacturer(addManufacturerDto: AddManufacturerDto): Promise<void> {
+  async createManufacturer(
+    addManufacturerDto: AddManufacturerDto,
+  ): Promise<void> {
     const { manufacturerName } = addManufacturerDto;
     const manufacturer = this.manufacturerRepository.create({
       manufacturerName,
