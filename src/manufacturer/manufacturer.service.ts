@@ -6,8 +6,10 @@ import { AddManufacturerDto } from './dto/add-manufacturer.dto';
 
 @Injectable()
 export class ManufacturerService {
-  @InjectRepository(ManufacturerEntity)
-  private manufacturerRepository: Repository<ManufacturerEntity>;
+  constructor(
+    @InjectRepository(ManufacturerEntity)
+    private manufacturerRepository: Repository<ManufacturerEntity>,
+  ) {}
 
   async createManufacturer(
     addManufacturerDto: AddManufacturerDto,
