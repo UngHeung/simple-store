@@ -1,12 +1,14 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { ManufacturerService } from './manufacturer.service';
 import { AddManufacturerDto } from './dto/add-manufacturer.dto';
+import { ManufacturerEntity } from './entity/manufacturer.entity';
 
 @Controller('manufacturer')
 export class ManufacturerController {
@@ -14,7 +16,14 @@ export class ManufacturerController {
 
   @Post('/add')
   @UsePipes(ValidationPipe)
-  createManufacturer(@Body() addManufacturerDto: AddManufacturerDto) {
+  createManufacturer(
+    @Body() addManufacturerDto: AddManufacturerDto,
+  ): Promise<void> {
     return this.manufacturerService.createManufacturer(addManufacturerDto);
+  }
+
+  @Get('/')
+  getManufacturers(): Promise<ManufacturerEntity[]> {
+    return this.manufacturerService.getManufacturers();
   }
 }

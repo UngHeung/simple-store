@@ -25,4 +25,9 @@ export class ManufacturerService {
       console.log(error);
     }
   }
+
+  async getManufacturers(): Promise<ManufacturerEntity[]> {
+    const manufacturers = await this.manufacturerRepository.find();
+    return manufacturers;
+  }
 }
