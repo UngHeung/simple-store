@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { AddManufacturerDto } from './dto/add-manufacturer.dto';
 
 @Injectable()
-export class ManufacturerService {
+export class ManufacturersService {
   constructor(
     @InjectRepository(ManufacturerEntity)
     private manufacturerRepository: Repository<ManufacturerEntity>,
@@ -34,7 +34,6 @@ export class ManufacturerService {
   async getManufacturerByName(
     manufacturerName: string,
   ): Promise<ManufacturerEntity> {
-    console.log(manufacturerName);
     const manufacturer = await this.manufacturerRepository.findOne({
       where: { manufacturerName: manufacturerName },
     });
