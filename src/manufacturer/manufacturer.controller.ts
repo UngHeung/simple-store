@@ -26,4 +26,11 @@ export class ManufacturerController {
   getManufacturers(): Promise<ManufacturerEntity[]> {
     return this.manufacturerService.getManufacturers();
   }
+
+  @Get('/find')
+  getManufacturerByName(
+    @Body() req: { manufacturerName: string },
+  ): Promise<ManufacturerEntity> {
+    return this.manufacturerService.getManufacturerByName(req.manufacturerName);
+  }
 }

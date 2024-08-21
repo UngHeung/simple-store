@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ManufacturerEntity } from './entity/manufacturer.entity';
 import { Repository } from 'typeorm';
@@ -29,5 +29,21 @@ export class ManufacturerService {
   async getManufacturers(): Promise<ManufacturerEntity[]> {
     const manufacturers = await this.manufacturerRepository.find();
     return manufacturers;
+  }
+
+  async getManufacturerByName(
+    manufacturerName: string,
+  ): Promise<ManufacturerEntity> {
+    console.log(manufacturerName);
+    const manufacturer = await this.manufacturerRepository.findOne({
+      where: { manufacturerName: manufacturerName },
+    });
+
+    if (!manufacturer)
+      throw new NotFoundException(
+        `제조사를 찾을 수 없습니다. 검색어 : ${manufacturerName}`,
+      );
+
+    return manufacturer;
   }
 }
