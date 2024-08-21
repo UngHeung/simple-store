@@ -1,7 +1,9 @@
+import { ManufacturerEntity } from 'src/manufacturer/entity/manufacturer.entity';
 import {
   BaseEntity,
   Column,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
@@ -22,4 +24,10 @@ export class ProductEntity extends BaseEntity {
   colors: string;
 
   // manufacturer
+  @ManyToOne(
+    () => ManufacturerEntity,
+    (manufacturer) => manufacturer.products,
+    { eager: false },
+  )
+  manufacturer: ManufacturerEntity;
 }

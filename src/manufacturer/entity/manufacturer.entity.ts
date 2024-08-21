@@ -1,7 +1,9 @@
+import { ProductEntity } from 'src/products/entity/product.entity';
 import {
   BaseEntity,
   Column,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
@@ -16,4 +18,8 @@ export class ManufacturerEntity extends BaseEntity {
   manufacturerName: string;
 
   // product
+  @OneToMany(() => ProductEntity, (product) => product.manufacturer, {
+    eager: true,
+  })
+  products: ProductEntity[];
 }
