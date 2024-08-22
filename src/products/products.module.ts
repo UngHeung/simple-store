@@ -5,10 +5,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductEntity } from './entity/product.entity';
 import { AuthModule } from 'src/auth/auth.module';
 import { PriceByStorageEntity } from './entity/price-by-storage.entity';
+import { ManufacturerEntity } from 'src/manufacturer/entity/manufacturer.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ProductEntity, PriceByStorageEntity]),
+    TypeOrmModule.forFeature([
+      ProductEntity,
+      PriceByStorageEntity,
+      ManufacturerEntity,
+    ]),
     AuthModule,
   ],
   controllers: [ProductsController],
