@@ -1,4 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { ProductEntity } from './product.entity';
 
 @Entity()
 export class PriceByStorageEntity extends BaseEntity {
@@ -11,4 +18,8 @@ export class PriceByStorageEntity extends BaseEntity {
   price: number;
 
   // product
+  @ManyToOne(() => ProductEntity, product => product.priceByStorages, {
+    eager: false,
+  })
+  product: ProductEntity;
 }

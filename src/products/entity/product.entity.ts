@@ -4,9 +4,11 @@ import {
   Column,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
+import { PriceByStorageEntity } from './price-by-storage.entity';
 
 @Entity()
 @Unique(['modelName'])
@@ -25,4 +27,12 @@ export class ProductEntity extends BaseEntity {
     eager: false,
   })
   manufacturer: ManufacturerEntity;
+
+  // price by memory
+  @OneToMany(
+    () => PriceByStorageEntity,
+    priceByStorage => priceByStorage.product,
+    { eager: true },
+  )
+  priceByStorages: PriceByStorageEntity[];
 }
