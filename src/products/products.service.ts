@@ -59,6 +59,16 @@ export class ProductsService {
     return product;
   }
 
+  async addProductImages(
+    productId: number,
+    images: Array<Express.Multer.File>,
+  ) {
+    const product = this.getProductById(productId);
+    //
+
+    return images;
+  }
+
   async updateProduct(
     updateProductDto: UpdateProductDto,
   ): Promise<ProductEntity> {
