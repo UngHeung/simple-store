@@ -20,7 +20,8 @@ export class ManufacturersService {
     });
 
     try {
-      await this.manufacturerRepository.save(manufacturer);
+      const response = await this.manufacturerRepository.save(manufacturer);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
