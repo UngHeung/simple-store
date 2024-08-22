@@ -7,4 +7,8 @@ export class addProductDto {
   @IsString()
   @IsNotEmpty()
   petName: string;
+  @IsString()
+  colors: string;
+
+  // price by memory
 }
