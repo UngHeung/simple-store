@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductEntity } from './entity/product.entity';
 import { Repository } from 'typeorm';
@@ -71,9 +71,13 @@ export class ProductsService {
     colors && (product.colors = colors);
 
     const response = await this.productRepository.save(product);
-    console.log(response);
+    Logger.log(`>>>>> 업데이트 완료. 내용 : ${JSON.stringify(response)}`);
 
     return product;
+  }
+
+  async deleteProduct(id: number): Promise<void> {
+    this.productRepository.delete({ id });
   }
 
   // Price by Storage

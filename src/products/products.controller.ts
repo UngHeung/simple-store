@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -44,6 +45,11 @@ export class ProductsController {
     @Body(ValidationPipe) updateProductDto: UpdateProductDto,
   ): Promise<ProductEntity> {
     return this.productsService.updateProduct(updateProductDto);
+  }
+
+  @Delete('/:id')
+  deleteProduct(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return this.productsService.deleteProduct(id);
   }
 
   // Price by Storage
