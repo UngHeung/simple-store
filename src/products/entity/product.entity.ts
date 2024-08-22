@@ -23,10 +23,8 @@ export class ProductEntity extends BaseEntity {
   @Column()
   colors: string;
 
-  @ManyToOne(
-    () => ManufacturerEntity,
-    (manufacturer) => manufacturer.products,
-    { eager: false },
-  )
+  @ManyToOne(() => ManufacturerEntity, manufacturer => manufacturer.products, {
+    eager: false,
+  })
   manufacturer: ManufacturerEntity;
 }

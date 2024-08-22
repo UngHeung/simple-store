@@ -17,7 +17,7 @@ export class ManufacturerEntity extends BaseEntity {
   @Column()
   manufacturerName: string;
 
-  @OneToMany(() => ProductEntity, (product) => product.manufacturer, {
+  @OneToMany(() => ProductEntity, product => product.manufacturer, {
     eager: true,
   })
   products: ProductEntity[];
