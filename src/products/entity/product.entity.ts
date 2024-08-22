@@ -28,7 +28,6 @@ export class ProductEntity extends BaseEntity {
   })
   manufacturer: ManufacturerEntity;
 
-  // price by memory
   @OneToMany(
     () => PriceByStorageEntity,
     priceByStorage => priceByStorage.product,

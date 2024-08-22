@@ -17,7 +17,6 @@ export class PriceByStorageEntity extends BaseEntity {
   @Column()
   price: number;
 
-  // product
   @ManyToOne(() => ProductEntity, product => product.priceByStorages, {
     eager: false,
   })
