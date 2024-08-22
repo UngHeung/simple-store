@@ -9,6 +9,4 @@ export class addProductDto {
   petName: string;
   @IsString()
   colors: string;
-
-  // price by memory
 }
