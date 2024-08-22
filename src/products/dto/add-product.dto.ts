@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class AddProductDto {
   @IsString()
@@ -9,4 +9,8 @@ export class AddProductDto {
   petName: string;
   @IsString()
   colors: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  manufacturerId: number;
 }
