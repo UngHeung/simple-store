@@ -7,6 +7,7 @@ export class AddPriceByStorageDto {
   @IsNumber()
   @IsNotEmpty()
   price: number;
+
   @IsNumber()
   @IsNotEmpty()
   productId: number;
