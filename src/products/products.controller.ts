@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  ValidationPipe,
+} from '@nestjs/common';
 import { AddProductDto } from './dto/add-product.dto';
 import { ProductEntity } from './entity/product.entity';
 import { ProductsService } from './products.service';
@@ -20,6 +28,13 @@ export class ProductsController {
   @Get('/')
   getProducts(): Promise<ProductEntity[]> {
     return this.productsService.getProducts();
+  }
+
+  @Get('/:id')
+  getProductById(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<ProductEntity> {
+    return this.productsService.getProductById(id);
   }
 
   // Price by Storage

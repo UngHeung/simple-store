@@ -51,6 +51,11 @@ export class ProductsService {
     return products;
   }
 
+  async getProductById(id: number): Promise<ProductEntity> {
+    const product = await this.productRepository.findOneBy({ id });
+    return product;
+  }
+
   // Price by Storage
   async createPriceByStorage(
     addPriceByStorageDto: AddPriceByStorageDto,
