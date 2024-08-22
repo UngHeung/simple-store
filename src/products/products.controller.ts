@@ -5,6 +5,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Put,
   ValidationPipe,
 } from '@nestjs/common';
 import { AddProductDto } from './dto/add-product.dto';
@@ -12,6 +13,7 @@ import { ProductEntity } from './entity/product.entity';
 import { ProductsService } from './products.service';
 import { AddPriceByStorageDto } from './dto/add-price-by-starage.dto';
 import { PriceByStorageEntity } from './entity/price-by-storage.entity';
+import { UpdateProductDto } from './dto/update-product.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -35,6 +37,13 @@ export class ProductsController {
     @Param('id', ParseIntPipe) id: number,
   ): Promise<ProductEntity> {
     return this.productsService.getProductById(id);
+  }
+
+  @Put('/')
+  updateProduct(
+    @Body(ValidationPipe) updateProductDto: UpdateProductDto,
+  ): Promise<ProductEntity> {
+    return this.productsService.updateProduct(updateProductDto);
   }
 
   // Price by Storage
