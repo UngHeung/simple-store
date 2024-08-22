@@ -76,6 +76,19 @@ export class ProductsService {
     return product;
   }
 
+  async updateProductManufacturer(
+    productId: number,
+    manufacturerId: number,
+  ): Promise<ProductEntity> {
+    const product = await this.getProductById(productId);
+    const manufacturer = await this.manufacturerRepository.findOneBy({
+      id: manufacturerId,
+    });
+    product.manufacturer = manufacturer;
+    this.productRepository.save(product);
+    return product;
+  }
+
   async deleteProduct(id: number): Promise<void> {
     this.productRepository.delete({ id });
   }

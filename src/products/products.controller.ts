@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   Put,
   ValidationPipe,
@@ -45,6 +46,17 @@ export class ProductsController {
     @Body(ValidationPipe) updateProductDto: UpdateProductDto,
   ): Promise<ProductEntity> {
     return this.productsService.updateProduct(updateProductDto);
+  }
+
+  @Patch('/:id/manufacturer')
+  updateProductManufacturer(
+    @Param('id', ParseIntPipe) productId: number,
+    @Body(ValidationPipe) req: { manufacturerId: number },
+  ): Promise<ProductEntity> {
+    return this.productsService.updateProductManufacturer(
+      productId,
+      req.manufacturerId,
+    );
   }
 
   @Delete('/:id')
