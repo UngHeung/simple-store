@@ -13,7 +13,7 @@ export class ManufacturersService {
 
   async createManufacturer(
     addManufacturerDto: AddManufacturerDto,
-  ): Promise<void> {
+  ): Promise<ManufacturerEntity> {
     const { manufacturerName } = addManufacturerDto;
     const manufacturer = this.manufacturerRepository.create({
       manufacturerName,
@@ -24,6 +24,8 @@ export class ManufacturersService {
     } catch (error) {
       console.log(error);
     }
+
+    return manufacturer;
   }
 
   async getManufacturers(): Promise<ManufacturerEntity[]> {

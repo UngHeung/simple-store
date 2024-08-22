@@ -21,7 +21,7 @@ export class ManufacturersController {
   @UsePipes(ValidationPipe)
   createManufacturer(
     @Body() addManufacturerDto: AddManufacturerDto,
-  ): Promise<void> {
+  ): Promise<ManufacturerEntity> {
     return this.manufacturersService.createManufacturer(addManufacturerDto);
   }
 
