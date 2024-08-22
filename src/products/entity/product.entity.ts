@@ -9,17 +9,15 @@ import {
 } from 'typeorm';
 
 @Entity()
-@Unique(['modelname'])
+@Unique(['modelName'])
 export class ProductEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  modelname: string;
+  modelName: string;
   @Column()
-  petname: string;
-  @Column()
-  memory: string;
+  petName: string;
   @Column()
   colors: string;
 
