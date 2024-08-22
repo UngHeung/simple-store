@@ -10,7 +10,6 @@ export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
   // Products
-
   @Post('/')
   createProduct(
     @Body(ValidationPipe) addProductDto: AddProductDto,
@@ -18,12 +17,21 @@ export class ProductsController {
     return this.productsService.createProduct(addProductDto);
   }
 
-  // Price by Storage
+  @Get('/')
+  getProducts(): Promise<ProductEntity[]> {
+    return this.productsService.getProducts();
+  }
 
+  // Price by Storage
   @Post('/price')
   createPriceByStorage(
     @Body(ValidationPipe) addPriceByStorage: AddPriceByStorageDto,
   ): Promise<PriceByStorageEntity> {
     return this.productsService.createPriceByStorage(addPriceByStorage);
+  }
+
+  @Get('/price')
+  getPriceByStorages(): Promise<PriceByStorageEntity[]> {
+    return this.productsService.getPriceByStorages();
   }
 }

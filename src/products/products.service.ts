@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { PriceByStorageEntity } from './entity/price-by-storage.entity';
 import { AddProductDto } from './dto/add-product.dto';
 import { AddPriceByStorageDto } from './dto/add-price-by-starage.dto';
+import { ManufacturerEntity } from 'src/manufacturer/entity/manufacturer.entity';
 
 @Injectable()
 export class ProductsService {
@@ -13,6 +14,8 @@ export class ProductsService {
     private productRepository: Repository<ProductEntity>,
     @InjectRepository(PriceByStorageEntity)
     private priceByStorageRepository: Repository<PriceByStorageEntity>,
+    @InjectRepository(ManufacturerEntity)
+    private manufacturerRepository: Repository<ManufacturerEntity>,
   ) {}
 
   /**
@@ -22,11 +25,16 @@ export class ProductsService {
 
   // Product
   async createProduct(addProductDto: AddProductDto): Promise<ProductEntity> {
-    const { modelName, petName, colors }: AddProductDto = addProductDto;
+    const { modelName, petName, colors, manufacturerId }: AddProductDto =
+      addProductDto;
+    const manufacturer = await this.manufacturerRepository.findOne({
+      where: { id: manufacturerId },
+    });
     const product = this.productRepository.create({
       modelName,
       petName,
       colors,
+      manufacturer,
     });
 
     try {
@@ -38,8 +46,12 @@ export class ProductsService {
     return product;
   }
 
-  // Price by Storage
+  async getProducts(): Promise<ProductEntity[]> {
+    const products = await this.productRepository.find();
+    return products;
+  }
 
+  // Price by Storage
   async createPriceByStorage(
     addPriceByStorageDto: AddPriceByStorageDto,
   ): Promise<PriceByStorageEntity> {
@@ -49,24 +61,24 @@ export class ProductsService {
       where: { id: addPriceByStorageDto.productId },
     });
 
-    console.log(product);
-
     const priceByStorage = this.priceByStorageRepository.create({
       storage,
       price,
       product,
     });
 
-    product.priceByStorages.push(priceByStorage);
-
     try {
       const response = await this.priceByStorageRepository.save(priceByStorage);
-      const response2 = await this.productRepository.save(product);
-      console.log(response, response2);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
 
+    return priceByStorage;
+  }
+
+  async getPriceByStorages(): Promise<PriceByStorageEntity[]> {
+    const priceByStorage = await this.priceByStorageRepository.find();
     return priceByStorage;
   }
 }
