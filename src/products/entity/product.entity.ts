@@ -5,6 +5,7 @@ import {
   Entity,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
@@ -36,12 +37,8 @@ export class ProductEntity extends BaseEntity {
   )
   priceByStorages: PriceByStorageEntity[];
 
-  @ManyToOne(
-    () => ProductImagesEntity,
-    productImages => productImages.products,
-    {
-      eager: false,
-    },
-  )
+  @OneToOne(() => ProductImagesEntity, productImages => productImages.product, {
+    eager: true,
+  })
   imagesPath: ProductImagesEntity;
 }

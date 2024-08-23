@@ -2,7 +2,7 @@ import {
   BaseEntity,
   Column,
   Entity,
-  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
@@ -18,8 +18,8 @@ export class ProductImagesEntity extends BaseEntity {
   @Column()
   imagesPath: string;
 
-  @OneToMany(() => ProductEntity, products => products.imagesPath, {
-    eager: true,
+  @OneToOne(() => ProductEntity, products => products.imagesPath, {
+    eager: false,
   })
-  products: ProductEntity[];
+  product: ProductEntity;
 }
