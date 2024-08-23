@@ -10,4 +10,6 @@ export class UpdateProductDto {
   petName: string;
   @IsString()
   colors: string;
+  @IsNumber()
+  productImagesId: number;
 }
