@@ -8,6 +8,7 @@ import { PriceByStorageEntity } from './entity/price-by-storage.entity';
 import { ManufacturerEntity } from 'src/manufacturer/entity/manufacturer.entity';
 import { MulterModule } from '@nestjs/platform-express';
 import { MulterConfigService } from 'src/configs/multer.config';
+import { ProductImagesEntity } from './entity/product-images.entity';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { MulterConfigService } from 'src/configs/multer.config';
       ProductEntity,
       PriceByStorageEntity,
       ManufacturerEntity,
+      ProductImagesEntity,
     ]),
     AuthModule,
     MulterModule.registerAsync({
