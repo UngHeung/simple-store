@@ -46,11 +46,8 @@ export class ProductsController {
 
   @Post('/:id/upload-images')
   @UseInterceptors(FilesInterceptor('images'))
-  addProductImages(
-    @Param('id', ParseIntPipe) productId: number,
-    @UploadedFiles() images: Array<Express.Multer.File>,
-  ) {
-    return this.productsService.addProductImages(productId, images);
+  addProductImages(@UploadedFiles() images: Array<Express.Multer.File>) {
+    return this.productsService.addProductImages(images);
   }
 
   @Put('/')

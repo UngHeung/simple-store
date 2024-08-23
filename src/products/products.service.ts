@@ -7,6 +7,7 @@ import { AddProductDto } from './dto/add-product.dto';
 import { AddPriceByStorageDto } from './dto/add-price-by-starage.dto';
 import { ManufacturerEntity } from 'src/manufacturer/entity/manufacturer.entity';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { ProductImagesEntity } from './entity/product-images.entity';
 
 @Injectable()
 export class ProductsService {
@@ -17,6 +18,8 @@ export class ProductsService {
     private priceByStorageRepository: Repository<PriceByStorageEntity>,
     @InjectRepository(ManufacturerEntity)
     private manufacturerRepository: Repository<ManufacturerEntity>,
+    @InjectRepository(ProductImagesEntity)
+    private productImagesRepository: Repository<ProductImagesEntity>,
   ) {}
 
   /**
@@ -59,26 +62,32 @@ export class ProductsService {
     return product;
   }
 
-  async addProductImages(
-    productId: number,
-    images: Array<Express.Multer.File>,
-  ) {
-    const product = this.getProductById(productId);
-    //
+  async addProductImages(images: Array<Express.Multer.File>) {
+    const paths: string[] = [];
+    images.map(item => paths.push(item.path));
+    const imagesPath = this.productImagesRepository.create({
+      imagesPath: paths.join(', '),
+    });
 
-    return images;
+    this.productImagesRepository.save(imagesPath);
+
+    return imagesPath;
   }
 
   async updateProduct(
     updateProductDto: UpdateProductDto,
   ): Promise<ProductEntity> {
-    const { modelName, petName, colors } = updateProductDto;
+    const { modelName, petName, colors, productImagesId } = updateProductDto;
 
     const product = await this.getProductById(updateProductDto.productId);
+    const productImages = await this.productImagesRepository.findOneBy({
+      id: productImagesId,
+    });
 
     modelName && (product.modelName = modelName);
     petName && (product.petName = petName);
     colors && (product.colors = colors);
+    productImages && (product.productImages = productImages);
 
     const response = await this.productRepository.save(product);
     Logger.log(`>>>>> 업데이트 완료. 내용 : ${JSON.stringify(response)}`);
