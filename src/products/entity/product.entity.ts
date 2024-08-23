@@ -3,6 +3,7 @@ import {
   BaseEntity,
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   OneToOne,
@@ -37,8 +38,7 @@ export class ProductEntity extends BaseEntity {
   )
   priceByStorages: PriceByStorageEntity[];
 
-  @OneToOne(() => ProductImagesEntity, productImages => productImages.product, {
-    eager: true,
-  })
-  imagesPath: ProductImagesEntity;
+  @OneToOne(() => ProductImagesEntity)
+  @JoinColumn()
+  productImages: ProductImagesEntity;
 }
