@@ -9,6 +9,7 @@ import {
   Unique,
 } from 'typeorm';
 import { PriceByStorageEntity } from './price-by-storage.entity';
+import { ProductImagesEntity } from './product-images.entity';
 
 @Entity()
 @Unique(['modelName'])
@@ -34,4 +35,13 @@ export class ProductEntity extends BaseEntity {
     { eager: true },
   )
   priceByStorages: PriceByStorageEntity[];
+
+  @ManyToOne(
+    () => ProductImagesEntity,
+    productImages => productImages.products,
+    {
+      eager: false,
+    },
+  )
+  imagesPath: ProductImagesEntity;
 }
