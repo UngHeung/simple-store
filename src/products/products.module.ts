@@ -12,12 +12,7 @@ import { ProductImagesEntity } from './entity/product-images.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      ProductEntity,
-      PriceByStorageEntity,
-      ManufacturerEntity,
-      ProductImagesEntity,
-    ]),
+    TypeOrmModule.forFeature([ProductEntity, PriceByStorageEntity, ManufacturerEntity, ProductImagesEntity]),
     AuthModule,
     MulterModule.registerAsync({
       useClass: MulterConfigService,

@@ -1,9 +1,4 @@
-import {
-  ConflictException,
-  Injectable,
-  InternalServerErrorException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { ConflictException, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './entity/user.entity';
 import { Repository } from 'typeorm';
@@ -34,10 +29,7 @@ export class AuthService {
     try {
       await this.userRepository.save(user);
     } catch (error) {
-      if (error.code === '23505')
-        throw new ConflictException(
-          '이미 등록된 계정(아이디 또는 연락처)입니다.',
-        );
+      if (error.code === '23505') throw new ConflictException('이미 등록된 계정(아이디 또는 연락처)입니다.');
       else throw new InternalServerErrorException();
     }
   }
@@ -50,8 +42,7 @@ export class AuthService {
       const payload = { useraccount };
       const accessToken = this.jwtService.sign(payload);
       return { accessToken };
-    } else
-      throw new UnauthorizedException('아이디 또는 비밀번호를 확인해주세요.');
+    } else throw new UnauthorizedException('아이디 또는 비밀번호를 확인해주세요.');
   }
 
   async encodePassword(password: string) {

@@ -1,14 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Post,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ManufacturersService } from './manufacturers.service';
 import { AddManufacturerDto } from './dto/add-manufacturer.dto';
 import { ManufacturerEntity } from './entity/manufacturer.entity';
@@ -19,9 +9,7 @@ export class ManufacturersController {
 
   @Post('/add')
   @UsePipes(ValidationPipe)
-  createManufacturer(
-    @Body() addManufacturerDto: AddManufacturerDto,
-  ): Promise<ManufacturerEntity> {
+  createManufacturer(@Body() addManufacturerDto: AddManufacturerDto): Promise<ManufacturerEntity> {
     return this.manufacturersService.createManufacturer(addManufacturerDto);
   }
 
@@ -31,12 +19,8 @@ export class ManufacturersController {
   }
 
   @Get('/find')
-  getManufacturerByName(
-    @Body() req: { manufacturerName: string },
-  ): Promise<ManufacturerEntity> {
-    return this.manufacturersService.getManufacturerByName(
-      req.manufacturerName,
-    );
+  getManufacturerByName(@Body() req: { manufacturerName: string }): Promise<ManufacturerEntity> {
+    return this.manufacturersService.getManufacturerByName(req.manufacturerName);
   }
 
   @Delete('/:id')

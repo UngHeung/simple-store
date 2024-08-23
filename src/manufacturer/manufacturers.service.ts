@@ -11,9 +11,7 @@ export class ManufacturersService {
     private manufacturerRepository: Repository<ManufacturerEntity>,
   ) {}
 
-  async createManufacturer(
-    addManufacturerDto: AddManufacturerDto,
-  ): Promise<ManufacturerEntity> {
+  async createManufacturer(addManufacturerDto: AddManufacturerDto): Promise<ManufacturerEntity> {
     const { manufacturerName } = addManufacturerDto;
     const manufacturer = this.manufacturerRepository.create({
       manufacturerName,
@@ -34,24 +32,18 @@ export class ManufacturersService {
     return manufacturers;
   }
 
-  async getManufacturerByName(
-    manufacturerName: string,
-  ): Promise<ManufacturerEntity> {
+  async getManufacturerByName(manufacturerName: string): Promise<ManufacturerEntity> {
     const manufacturer = await this.manufacturerRepository.findOne({
       where: { manufacturerName: manufacturerName },
     });
 
-    if (!manufacturer)
-      throw new NotFoundException(
-        `제조사를 찾을 수 없습니다. 검색어 : ${manufacturerName}`,
-      );
+    if (!manufacturer) throw new NotFoundException(`제조사를 찾을 수 없습니다. 검색어 : ${manufacturerName}`);
 
     return manufacturer;
   }
 
   async deleteManufacturer(id: number): Promise<void> {
     const response = await this.manufacturerRepository.delete({ id });
-    if (!response.affected)
-      throw new NotFoundException(`삭제할 제조사가 없습니다. id: ${id}`);
+    if (!response.affected) throw new NotFoundException(`삭제할 제조사가 없습니다. id: ${id}`);
   }
 }

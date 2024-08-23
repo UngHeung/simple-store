@@ -1,10 +1,4 @@
-import {
-  IsNotEmpty,
-  IsString,
-  Matches,
-  MaxLength,
-  MinLength,
-} from 'class-validator';
+import { IsNotEmpty, IsString, Matches, MaxLength, MinLength } from 'class-validator';
 
 export class AuthCredentialDto {
   @IsString()
@@ -21,8 +15,7 @@ export class AuthCredentialDto {
   @MinLength(8)
   @MaxLength(15)
   @Matches(/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/, {
-    message:
-      '비밀번호는 영문 대소문자, 숫자, 특수문자가 포함되어야 합니다. (!@#$%^*+=-) (8 ~ 15자 제한)',
+    message: '비밀번호는 영문 대소문자, 숫자, 특수문자가 포함되어야 합니다. (!@#$%^*+=-) (8 ~ 15자 제한)',
   })
   password: string;
 
@@ -46,8 +39,7 @@ export class AuthCredentialDto {
   @IsString()
   @MaxLength(30)
   @Matches(/^[가-힣a-zA-Z0-9 -]*$/, {
-    message:
-      '주소는 한글, 영문, 숫자, 공백, 하이픈(-)만 입력 가능합니다. (최대 30자)',
+    message: '주소는 한글, 영문, 숫자, 공백, 하이픈(-)만 입력 가능합니다. (최대 30자)',
   })
   address?: string;
 }

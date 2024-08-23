@@ -29,8 +29,7 @@ export class ProductsService {
 
   // Product
   async createProduct(addProductDto: AddProductDto): Promise<ProductEntity> {
-    const { modelName, petName, colors, manufacturerId }: AddProductDto =
-      addProductDto;
+    const { modelName, petName, colors, manufacturerId }: AddProductDto = addProductDto;
     const manufacturer = await this.manufacturerRepository.findOne({
       where: { id: manufacturerId },
     });
@@ -57,8 +56,7 @@ export class ProductsService {
 
   async getProductById(id: number): Promise<ProductEntity> {
     const product = await this.productRepository.findOneBy({ id });
-    if (!product)
-      throw new NotFoundException(`상품이 존재하지 않습니다. id : ${id}`);
+    if (!product) throw new NotFoundException(`상품이 존재하지 않습니다. id : ${id}`);
     return product;
   }
 
@@ -74,9 +72,7 @@ export class ProductsService {
     return imagesPath;
   }
 
-  async updateProduct(
-    updateProductDto: UpdateProductDto,
-  ): Promise<ProductEntity> {
+  async updateProduct(updateProductDto: UpdateProductDto): Promise<ProductEntity> {
     const { modelName, petName, colors, productImagesId } = updateProductDto;
 
     const product = await this.getProductById(updateProductDto.productId);
@@ -95,10 +91,7 @@ export class ProductsService {
     return product;
   }
 
-  async updateProductManufacturer(
-    productId: number,
-    manufacturerId: number,
-  ): Promise<ProductEntity> {
+  async updateProductManufacturer(productId: number, manufacturerId: number): Promise<ProductEntity> {
     const product = await this.getProductById(productId);
     const manufacturer = await this.manufacturerRepository.findOneBy({
       id: manufacturerId,
@@ -113,9 +106,7 @@ export class ProductsService {
   }
 
   // Price by Storage
-  async createPriceByStorage(
-    addPriceByStorageDto: AddPriceByStorageDto,
-  ): Promise<PriceByStorageEntity> {
+  async createPriceByStorage(addPriceByStorageDto: AddPriceByStorageDto): Promise<PriceByStorageEntity> {
     const { storage, price }: AddPriceByStorageDto = addPriceByStorageDto;
 
     const product = await this.productRepository.findOne({

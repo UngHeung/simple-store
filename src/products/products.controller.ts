@@ -1,17 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Patch,
-  Post,
-  Put,
-  UploadedFiles,
-  UseInterceptors,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Put, UploadedFiles, UseInterceptors, ValidationPipe } from '@nestjs/common';
 import { AddProductDto } from './dto/add-product.dto';
 import { ProductEntity } from './entity/product.entity';
 import { ProductsService } from './products.service';
@@ -26,9 +13,7 @@ export class ProductsController {
 
   // Products
   @Post('/')
-  createProduct(
-    @Body(ValidationPipe) addProductDto: AddProductDto,
-  ): Promise<ProductEntity> {
+  createProduct(@Body(ValidationPipe) addProductDto: AddProductDto): Promise<ProductEntity> {
     return this.productsService.createProduct(addProductDto);
   }
 
@@ -38,9 +23,7 @@ export class ProductsController {
   }
 
   @Get('/:id')
-  getProductById(
-    @Param('id', ParseIntPipe) id: number,
-  ): Promise<ProductEntity> {
+  getProductById(@Param('id', ParseIntPipe) id: number): Promise<ProductEntity> {
     return this.productsService.getProductById(id);
   }
 
@@ -51,21 +34,13 @@ export class ProductsController {
   }
 
   @Put('/')
-  updateProduct(
-    @Body(ValidationPipe) updateProductDto: UpdateProductDto,
-  ): Promise<ProductEntity> {
+  updateProduct(@Body(ValidationPipe) updateProductDto: UpdateProductDto): Promise<ProductEntity> {
     return this.productsService.updateProduct(updateProductDto);
   }
 
   @Patch('/:id/manufacturer')
-  updateProductManufacturer(
-    @Param('id', ParseIntPipe) productId: number,
-    @Body(ValidationPipe) req: { manufacturerId: number },
-  ): Promise<ProductEntity> {
-    return this.productsService.updateProductManufacturer(
-      productId,
-      req.manufacturerId,
-    );
+  updateProductManufacturer(@Param('id', ParseIntPipe) productId: number, @Body(ValidationPipe) req: { manufacturerId: number }): Promise<ProductEntity> {
+    return this.productsService.updateProductManufacturer(productId, req.manufacturerId);
   }
 
   @Delete('/:id')
@@ -75,9 +50,7 @@ export class ProductsController {
 
   // Price by Storage
   @Post('/price')
-  createPriceByStorage(
-    @Body(ValidationPipe) addPriceByStorage: AddPriceByStorageDto,
-  ): Promise<PriceByStorageEntity> {
+  createPriceByStorage(@Body(ValidationPipe) addPriceByStorage: AddPriceByStorageDto): Promise<PriceByStorageEntity> {
     return this.productsService.createPriceByStorage(addPriceByStorage);
   }
 

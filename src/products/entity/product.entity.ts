@@ -1,15 +1,5 @@
 import { ManufacturerEntity } from 'src/manufacturer/entity/manufacturer.entity';
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-  Unique,
-} from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique } from 'typeorm';
 import { PriceByStorageEntity } from './price-by-storage.entity';
 import { ProductImagesEntity } from './product-images.entity';
 
@@ -31,11 +21,7 @@ export class ProductEntity extends BaseEntity {
   })
   manufacturer: ManufacturerEntity;
 
-  @OneToMany(
-    () => PriceByStorageEntity,
-    priceByStorage => priceByStorage.product,
-    { eager: true },
-  )
+  @OneToMany(() => PriceByStorageEntity, priceByStorage => priceByStorage.product, { eager: true })
   priceByStorages: PriceByStorageEntity[];
 
   @OneToOne(() => ProductImagesEntity)
