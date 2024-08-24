@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ManufacturersService } from './manufacturers.service';
 import { AddManufacturerDto } from './dto/add-manufacturer.dto';
 import { ManufacturerEntity } from './entity/manufacturer.entity';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('manufacturer')
+@UseGuards(AuthGuard())
 export class ManufacturersController {
   constructor(private manufacturersService: ManufacturersService) {}
 

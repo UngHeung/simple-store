@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Put, UploadedFiles, UseInterceptors, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Put, UploadedFiles, UseGuards, UseInterceptors, ValidationPipe } from '@nestjs/common';
 import { AddProductDto } from './dto/add-product.dto';
 import { ProductEntity } from './entity/product.entity';
 import { ProductsService } from './products.service';
@@ -6,8 +6,10 @@ import { AddPriceByStorageDto } from './dto/add-price-by-starage.dto';
 import { PriceByStorageEntity } from './entity/price-by-storage.entity';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('products')
+@UseGuards(AuthGuard())
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
