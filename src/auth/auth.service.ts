@@ -16,14 +16,14 @@ export class AuthService {
   ) {}
 
   async createUser(authCredentialDto: AuthCredentialDto): Promise<void> {
-    const { useraccount, password } = authCredentialDto;
+    const { useraccount, password, username, phone, address } = authCredentialDto;
     const user = this.userRepository.create({
       useraccount,
       password: await this.encodePassword(password),
+      username,
+      phone,
+      address,
       role: 'ROLE_USER',
-      username: authCredentialDto.username,
-      phone: authCredentialDto.phone,
-      address: authCredentialDto.address,
     });
 
     try {
